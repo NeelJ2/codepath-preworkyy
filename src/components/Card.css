@@ -1,0 +1,49 @@
+.cardsContainer {
+  display: flex;
+  flex-wrap: nowrap; /* Prevents wrapping to the next line */
+  gap: 20px;
+  justify-content: start; /* Align cards to the start */
+  overflow-x: auto; /* Adds a horizontal scrollbar if content overflows */
+  overflow-y: hidden; /* Ensures there's no vertical scrollbar */
+  width: 100%; /* Makes sure the container spans the full width of its parent */
+  white-space: nowrap; /* Ensures inline elements won't wrap to the next line */
+}
+
+.card-container {
+  border: 5px solid #e1e1e1;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to the card */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+}
+
+.creator-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover; /* Ensures the images are of the same size without distorting them */
+  border-radius: 50%;
+  margin-bottom: 20px;
+  display: block; /* Ensures the image respects the width and height defined */
+}
+
+.creator-name {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.creator-description {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.creator-url {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.creator-url:hover {
+  text-decoration: underline;
+}
