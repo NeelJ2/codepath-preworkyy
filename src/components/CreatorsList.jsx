@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../client';
+import './Card.css'; // Import your CSS file for styling
 
 const Card = ({ creator, onDelete }) => {
   return (
-    <div className="card-container">
+    <div className="card">
       <img
-        className="creator-image"
+        className="card-image"
         src={creator.imageURL || 'default-image-url.jpg'}
         alt={creator.name}
       />
-      <h3 className="creator-name">{creator.name}</h3>
-      <p className="creator-description">{creator.description}</p>
-      <a
-        href={creator.url}
-        className="creator-url"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Visit URL
-      </a>
+      <div className="card-details">
+        <h3 className="card-name">{creator.name}</h3>
+        <p className="card-description">{creator.description}</p>
+        <a
+          href={creator.url}
+          className="card-url"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Visit URL
+        </a>
+      </div>
       <div className="card-actions">
         <Link to={`/edit/${creator.id}`} className="edit-button">
           Edit
@@ -67,7 +70,7 @@ const CreatorsList = () => {
   };
 
   return (
-    <div className="cardsContainer">
+    <div className="cards-container">
       {creators.map((creator) => (
         <Card key={creator.id} creator={creator} onDelete={deleteCreator} />
       ))}

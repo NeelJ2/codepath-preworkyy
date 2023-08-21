@@ -4,20 +4,23 @@ import { supabase } from '../client';
 
 const ViewCreator = () => {
   const [creator, setCreator] = useState(null);
-  const { id } = useParams(); // Extracting the ID from the route parameter
+  const { id } = useParams();
   const nav = useNavigate();
 
   useEffect(() => {
     const fetchCreator = async () => {
-      const { data, error } = await supabase
-        .from('creators')
-        .select('*')
-        .eq('id', id)
-        .single();
-      if (error) {
-        console.error('Error fetching creator:', error);
-      } else {
+      try {
+        const { data, error } = await supabase
+          .from('creators')
+          .select('*')
+          .eq('id', id)
+          .single();
+        if (error) {
+          throw error;
+        }
         setCreator(data);
+      } catch (error) {
+        console.error('Error fetching creator:', error);
       }
     };
 
@@ -25,13 +28,17 @@ const ViewCreator = () => {
   }, [id]);
 
   const deleteCreator = async () => {
+    const confirmation = window.confirm(
+      'Are you sure you want to delete this creator?'
+    );
+    if (!confirmation) return;
+
     try {
       const { error } = await supabase.from('creators').delete().eq('id', id);
       if (error) {
         throw error;
       }
 
-      // Redirect to the list of creators after successful deletion
       nav('/');
     } catch (error) {
       console.error('Error deleting creator:', error);
@@ -44,7 +51,11 @@ const ViewCreator = () => {
     <div>
       <h1>{creator.name}</h1>
       <p>{creator.description}</p>
-      <img src={creator.imageURL} alt={creator.name} width={200} />
+      <img
+        src={creator.imageURL}
+        alt={`Image of ${creator.name}`}
+        width={200}
+      />
 
       <div>
         <Link to={`/edit/${id}`}>
